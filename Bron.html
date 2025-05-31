@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aviabilet Bron</title>
+  <style>
+    body { font-family: sans-serif; background: #f3f3f3; padding: 30px; }
+    form {
+      background: #fff; max-width: 600px; margin: auto; padding: 20px;
+      border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, select, textarea {
+      width: 100%; padding: 10px; margin-top: 5px;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      margin-top: 20px; width: 100%; padding: 12px;
+      background: #4CAF50; color: white; font-size: 16px;
+      border: none; border-radius: 5px; cursor: pointer;
+    }
+    button:hover { background: #45a049; }
+    #narx { font-weight: bold; color: green; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Aviabilet Bron Qilish</h2>
+
+  <form action="https://formspree.io/f/xvgrpwgv" method="POST">
+    <label>Ism va Familiya</label>
+    <input type="text" name="Ism" required>
+
+    <label>Telefon raqam</label>
+    <input type="tel" name="Telefon" required>
+
+    <label>Qayerdan</label>
+    <input type="text" name="Qayerdan" required>
+
+    <label>Qayerga</label>
+    <input type="text" name="Qayerga" required>
+
+    <label>Ketish sanasi</label>
+    <input type="date" name="Ketish sanasi" required>
+
+    <label>Qaytish sanasi</label>
+    <input type="date" name="Qaytish sanasi">
+
+    <label>Yo‘lovchilar soni</label>
+    <input type="number" name="Yo‘lovchilar soni" required>
+
+    <label>Tarkibi (kattalar/bolalar)</label>
+    <input type="text" name="Tarkibi">
+
+    <label>Chipta turi</label>
+    <select name="Chipta turi" id="chiptatur" onchange="hisoblaNarx()" required>
+      <option value="">Tanlang</option>
+      <option value="Bitta tomon">Bitta tomon</option>
+      <option value="Ikkita tomon">Ikkita tomon</option>
+    </select>
+
+    <div id="narx">💸 Hisoblangan narx: <span id="chiqarNarx">-</span> so‘m</div>
+    <input type="hidden" name="Hisoblangan narx" id="hiddenNarx" />
+
+    <label>Qo‘shimcha izoh</label>
+    <textarea name="Izoh" rows="4"></textarea>
+
+    <button type="submit">Yuborish</button>
+  </form>
+
+  <script>
+    function hisoblaNarx() {
+      const tur = document.getElementById("chiptatur").value;
+      const chiqar = document.getElementById("chiqarNarx");
+      const hidden = document.getElementById("hiddenNarx");
+      let narx = 0;
+
+      if (tur === "Bitta tomon") narx = 150000;
+      else if (tur === "Ikkita tomon") narx = 250000;
+      else narx = 0;
+
+      chiqar.innerText = narx.toLocaleString();
+      hidden.value = narx;
+    }
+  </script>
+
+</body>
+</html>
